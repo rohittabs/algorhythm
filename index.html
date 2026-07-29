@@ -225,6 +225,33 @@
   .about{font-size:13.5px;color:var(--ink2);line-height:1.65}
   .about b{color:var(--ink)}
 
+  /* ---------- Support / UPI ---------- */
+  #upiHost:empty{display:none}
+  .upiamts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .upichip{font-size:14px;font-weight:700;color:var(--pink);background:var(--chiptint);
+    border:1px solid var(--hair);border-radius:999px;padding:9px 16px;min-height:40px;
+    cursor:pointer;font-family:inherit;touch-action:manipulation;
+    transition:transform .12s var(--ease),filter .15s,box-shadow .15s}
+  .upichip:hover{filter:brightness(1.04)}
+  .upichip:active{transform:scale(.96)}
+  .upichip.on{background:var(--grad);color:#fff;border-color:transparent;
+    box-shadow:0 8px 20px rgba(230,51,142,.30)}
+  .upichip:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+  .upiapps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .upiapps .mbtn{margin:0}
+  a.gbtn,a.mbtn{display:block;text-align:center;text-decoration:none}
+  .upiqrwrap{display:flex;justify-content:center;margin-top:14px}
+  .upiqrwrap canvas{background:#fff;padding:10px;border-radius:var(--r-md);
+    border:1px solid var(--hair);max-width:100%;height:auto;image-rendering:pixelated}
+  .upiown{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .upiown input[type=number]{flex:1 1 130px;width:auto;min-width:120px;max-width:100%}
+  .upitoast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);
+    bottom:calc(96px + env(safe-area-inset-bottom));z-index:200;
+    background:var(--ink);color:var(--bg);font-size:13px;font-weight:700;
+    padding:10px 18px;border-radius:999px;box-shadow:var(--sh-md);
+    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s var(--ease)}
+  .upitoast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
   /* ---------- Bottom nav ---------- */
   nav.tabbar{position:fixed;left:50%;transform:translateX(-50%);
     bottom:calc(14px + env(safe-area-inset-bottom));z-index:50;
@@ -425,6 +452,7 @@
         </div></div>
         <p class="hint" style="margin:12px 0 0;text-align:center">System follows your device's light or dark setting.</p>
       </div>
+      <div id="upiHost"></div>
       <div class="card">
         <p class="mlabel">Backup and share</p>
         <button class="mbtn ico" id="btnBackup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.9-8.91A5 5 0 0 1 15.5 8 4 4 0 0 1 17 18"/><path d="M12 11v6"/><path d="M9 15l3 3 3-3"/></svg>Download backup file</button>
@@ -1892,6 +1920,473 @@ document.addEventListener('keydown', e => {
   if (Player.running) Player.stop();
   else if (state.exercise) Player.startExercise();
 });
+
+/* Minimal QR encoder: byte mode, error correction level M, versions 1-15. */
+var QR = (function () {
+  "use strict";
+
+  /* total data codewords, [ecPerBlock, g1Blocks, g1Data, g2Blocks, g2Data] for level M */
+  var SPEC = [
+    null,
+    [10, 1, 16, 0, 0],
+    [16, 1, 28, 0, 0],
+    [26, 1, 44, 0, 0],
+    [18, 2, 32, 0, 0],
+    [24, 2, 43, 0, 0],
+    [16, 4, 27, 0, 0],
+    [18, 4, 31, 0, 0],
+    [22, 2, 38, 2, 39],
+    [22, 3, 36, 2, 37],
+    [26, 4, 43, 1, 44],
+    [30, 1, 50, 4, 51],
+    [22, 6, 36, 2, 37],
+    [22, 8, 37, 1, 38],
+    [24, 4, 40, 5, 41],
+    [24, 5, 41, 5, 42]
+  ];
+
+  var ALIGN = [
+    null, [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34],
+    [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50],
+    [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70]
+  ];
+
+  var EXP = new Array(512), LOG = new Array(256), x = 1, i;
+  for (i = 0; i < 255; i++) {
+    EXP[i] = x; LOG[x] = i;
+    x <<= 1;
+    if (x & 256) x ^= 285;
+  }
+  for (i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+
+  function mul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+
+  function genPoly(n) {
+    var p = [1], j, k, np;
+    for (j = 0; j < n; j++) {
+      np = new Array(p.length + 1);
+      for (k = 0; k < np.length; k++) np[k] = 0;
+      for (k = 0; k < p.length; k++) {
+        np[k] ^= mul(p[k], EXP[j]);
+        np[k + 1] ^= p[k];
+      }
+      p = np;
+    }
+    return p;
+  }
+
+  function ecc(data, n) {
+    var g = genPoly(n), res = new Array(n), j, k, f;
+    for (j = 0; j < n; j++) res[j] = 0;
+    for (j = 0; j < data.length; j++) {
+      f = data[j] ^ res[0];
+      res.shift(); res.push(0);
+      if (f !== 0) for (k = 0; k < n; k++) res[k] ^= mul(g[n - 1 - k], f);
+    }
+    return res;
+  }
+
+  function utf8(str) {
+    var out = [], j, c;
+    for (j = 0; j < str.length; j++) {
+      c = str.charCodeAt(j);
+      if (c < 128) out.push(c);
+      else if (c < 2048) { out.push(192 | (c >> 6), 128 | (c & 63)); }
+      else if (c < 55296 || c > 57343) { out.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63)); }
+      else {
+        c = 65536 + (((c & 1023) << 10) | (str.charCodeAt(++j) & 1023));
+        out.push(240 | (c >> 18), 128 | ((c >> 12) & 63), 128 | ((c >> 6) & 63), 128 | (c & 63));
+      }
+    }
+    return out;
+  }
+
+  function dataCount(v) {
+    var s = SPEC[v];
+    return s[1] * s[2] + s[3] * s[4];
+  }
+
+  function build(text) {
+    var bytes = utf8(text), v, cci, cap, s, total, bits, j, k;
+
+    for (v = 1; v <= 15; v++) {
+      cci = v < 10 ? 8 : 16;
+      cap = ((dataCount(v) * 8) - 4 - cci) >> 3;
+      if (bytes.length <= cap) break;
+    }
+    if (v > 15) throw new Error("QR: text too long");
+    cci = v < 10 ? 8 : 16;
+    s = SPEC[v];
+    total = dataCount(v);
+
+    bits = [];
+    function push(val, len) { for (var b = len - 1; b >= 0; b--) bits.push((val >> b) & 1); }
+    push(4, 4);
+    push(bytes.length, cci);
+    for (j = 0; j < bytes.length; j++) push(bytes[j], 8);
+    for (j = 0; j < 4 && bits.length < total * 8; j++) bits.push(0);
+    while (bits.length % 8) bits.push(0);
+
+    var dc = [];
+    for (j = 0; j < bits.length; j += 8) {
+      var b8 = 0;
+      for (k = 0; k < 8; k++) b8 = (b8 << 1) | bits[j + k];
+      dc.push(b8);
+    }
+    var pad = [236, 17], pi = 0;
+    while (dc.length < total) dc.push(pad[pi++ % 2]);
+
+    /* split into blocks */
+    var blocks = [], eblocks = [], p = 0, n;
+    for (j = 0; j < s[1]; j++) { blocks.push(dc.slice(p, p + s[2])); p += s[2]; }
+    for (j = 0; j < s[3]; j++) { blocks.push(dc.slice(p, p + s[4])); p += s[4]; }
+    for (j = 0; j < blocks.length; j++) eblocks.push(ecc(blocks[j], s[0]));
+
+    var out = [], maxd = Math.max(s[2], s[4]);
+    for (j = 0; j < maxd; j++)
+      for (k = 0; k < blocks.length; k++)
+        if (j < blocks[k].length) out.push(blocks[k][j]);
+    for (j = 0; j < s[0]; j++)
+      for (k = 0; k < eblocks.length; k++) out.push(eblocks[k][j]);
+
+    return { version: v, codewords: out };
+  }
+
+  function newGrid(size) {
+    var g = [], j, k;
+    for (j = 0; j < size; j++) { g[j] = []; for (k = 0; k < size; k++) g[j][k] = null; }
+    return g;
+  }
+
+  function place(g, r, c, val) { g[r][c] = val; }
+
+  function finder(g, r, c) {
+    var dr, dc2, v;
+    for (dr = -1; dr <= 7; dr++) for (dc2 = -1; dc2 <= 7; dc2++) {
+      var rr = r + dr, cc = c + dc2;
+      if (rr < 0 || cc < 0 || rr >= g.length || cc >= g.length) continue;
+      v = (dr >= 0 && dr <= 6 && (dc2 === 0 || dc2 === 6)) ||
+          (dc2 >= 0 && dc2 <= 6 && (dr === 0 || dr === 6)) ||
+          (dr >= 2 && dr <= 4 && dc2 >= 2 && dc2 <= 4);
+      place(g, rr, cc, v ? 1 : 0);
+    }
+  }
+
+  function matrix(text) {
+    var enc = build(text), v = enc.version, size = v * 4 + 17;
+    var g = newGrid(size), fn = newGrid(size), j, k, r, c;
+
+    function set(rr, cc, val) { g[rr][cc] = val; fn[rr][cc] = 1; }
+
+    finder(g, 0, 0); finder(g, 0, size - 7); finder(g, size - 7, 0);
+    for (j = -1; j <= 7; j++) for (k = -1; k <= 7; k++) {
+      var a = [[0, 0], [0, size - 7], [size - 7, 0]];
+      for (var q = 0; q < 3; q++) {
+        var rr = a[q][0] + j, cc = a[q][1] + k;
+        if (rr >= 0 && cc >= 0 && rr < size && cc < size) fn[rr][cc] = 1;
+      }
+    }
+
+    var ap = ALIGN[v];
+    for (j = 0; j < ap.length; j++) for (k = 0; k < ap.length; k++) {
+      r = ap[j]; c = ap[k];
+      if ((r <= 8 && c <= 8) || (r <= 8 && c >= size - 9) || (r >= size - 9 && c <= 8)) continue;
+      for (var dr = -2; dr <= 2; dr++) for (var dc2 = -2; dc2 <= 2; dc2++) {
+        var on = Math.max(Math.abs(dr), Math.abs(dc2)) !== 1;
+        set(r + dr, c + dc2, on ? 1 : 0);
+      }
+    }
+
+    for (j = 8; j < size - 8; j++) {
+      set(6, j, j % 2 === 0 ? 1 : 0);
+      set(j, 6, j % 2 === 0 ? 1 : 0);
+    }
+    set(size - 8, 8, 1);
+
+    /* reserve format areas */
+    for (j = 0; j <= 8; j++) { if (!fn[8][j]) set(8, j, 0); if (!fn[j][8]) set(j, 8, 0); }
+    for (j = 0; j < 8; j++) { set(8, size - 1 - j, 0); set(size - 1 - j, 8, 0); }
+
+    if (v >= 7) {
+      var rem = v;
+      for (j = 0; j < 12; j++) rem = ((rem << 1) ^ ((rem >>> 11) * 0x1F25)) & 0xFFF;
+      var vinfo = (v << 12) | rem;
+      for (j = 0; j < 18; j++) {
+        var bit = (vinfo >> j) & 1;
+        set(Math.floor(j / 3), size - 11 + (j % 3), bit);
+        set(size - 11 + (j % 3), Math.floor(j / 3), bit);
+      }
+    }
+
+    /* data placement */
+    var cw = enc.codewords, bitIdx = 0, total = cw.length * 8;
+    function nextBit() {
+      if (bitIdx >= total) return 0;
+      var b = (cw[bitIdx >> 3] >> (7 - (bitIdx & 7))) & 1;
+      bitIdx++;
+      return b;
+    }
+    var up = true;
+    for (c = size - 1; c > 0; c -= 2) {
+      if (c === 6) c--;
+      for (var i2 = 0; i2 < size; i2++) {
+        r = up ? size - 1 - i2 : i2;
+        for (var cd = 0; cd < 2; cd++) {
+          var col = c - cd;
+          if (fn[r][col]) continue;
+          g[r][col] = nextBit();
+        }
+      }
+      up = !up;
+    }
+
+    function maskFn(m, rr, cc) {
+      switch (m) {
+        case 0: return (rr + cc) % 2 === 0;
+        case 1: return rr % 2 === 0;
+        case 2: return cc % 3 === 0;
+        case 3: return (rr + cc) % 3 === 0;
+        case 4: return (Math.floor(rr / 2) + Math.floor(cc / 3)) % 2 === 0;
+        case 5: return (rr * cc) % 2 + (rr * cc) % 3 === 0;
+        case 6: return ((rr * cc) % 2 + (rr * cc) % 3) % 2 === 0;
+        default: return ((rr + cc) % 2 + (rr * cc) % 3) % 2 === 0;
+      }
+    }
+
+    function fmtBits(mask) {
+      var d = (0 << 3) | mask; /* level M = 00 */
+      var rem2 = d, t;
+      for (t = 0; t < 10; t++) rem2 = ((rem2 << 1) ^ ((rem2 >>> 9) * 0x537)) & 0x3FF;
+      return (((d << 10) | rem2) ^ 0x5412) & 0x7FFF;
+    }
+
+    function applyFormat(m, target) {
+      var f = fmtBits(m), t;
+      for (t = 0; t <= 5; t++) target[t][8] = (f >> t) & 1;
+      target[7][8] = (f >> 6) & 1;
+      target[8][8] = (f >> 7) & 1;
+      target[8][7] = (f >> 8) & 1;
+      for (t = 9; t < 15; t++) target[8][14 - t] = (f >> t) & 1;
+      for (t = 0; t < 8; t++) target[8][size - 1 - t] = (f >> t) & 1;
+      for (t = 8; t < 15; t++) target[size - 15 + t][8] = (f >> t) & 1;
+      target[size - 8][8] = 1;
+    }
+
+    function penalty(m2) {
+      var p2 = 0, rr, cc, run, last, dark = 0, n2 = size * size;
+      for (rr = 0; rr < size; rr++) {
+        run = 1; last = -1;
+        for (cc = 0; cc < size; cc++) {
+          var val = m2[rr][cc];
+          if (val === last) { run++; if (run === 5) p2 += 3; else if (run > 5) p2 += 1; }
+          else { run = 1; last = val; }
+          if (val) dark++;
+        }
+      }
+      for (cc = 0; cc < size; cc++) {
+        run = 1; last = -1;
+        for (rr = 0; rr < size; rr++) {
+          var val2 = m2[rr][cc];
+          if (val2 === last) { run++; if (run === 5) p2 += 3; else if (run > 5) p2 += 1; }
+          else { run = 1; last = val2; }
+        }
+      }
+      for (rr = 0; rr < size - 1; rr++) for (cc = 0; cc < size - 1; cc++) {
+        var a2 = m2[rr][cc];
+        if (a2 === m2[rr][cc + 1] && a2 === m2[rr + 1][cc] && a2 === m2[rr + 1][cc + 1]) p2 += 3;
+      }
+      var pat1 = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], pat2 = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+      function has(arr, off, pat) {
+        for (var t = 0; t < 11; t++) if (arr[off + t] !== pat[t]) return false;
+        return true;
+      }
+      for (rr = 0; rr < size; rr++) {
+        var rowArr = m2[rr], colArr = [];
+        for (cc = 0; cc < size; cc++) colArr.push(m2[cc][rr]);
+        for (cc = 0; cc + 11 <= size; cc++) {
+          if (has(rowArr, cc, pat1) || has(rowArr, cc, pat2)) p2 += 40;
+          if (has(colArr, cc, pat1) || has(colArr, cc, pat2)) p2 += 40;
+        }
+      }
+      p2 += Math.floor(Math.abs(dark * 100 / n2 - 50) / 5) * 10;
+      return p2;
+    }
+
+    var best = null, bestScore = Infinity;
+    for (var m = 0; m < 8; m++) {
+      var cand = [];
+      for (r = 0; r < size; r++) {
+        cand[r] = [];
+        for (c = 0; c < size; c++) cand[r][c] = fn[r][c] ? g[r][c] : (g[r][c] ^ (maskFn(m, r, c) ? 1 : 0));
+      }
+      applyFormat(m, cand);
+      var sc = penalty(cand);
+      if (sc < bestScore) { bestScore = sc; best = cand; }
+    }
+    return best;
+  }
+
+  return { matrix: matrix };
+})();
+
+/* ============================================================
+   SUPPORT / UPI DONATIONS
+   Edit the three values in UPI_CFG and nothing else.
+   ============================================================ */
+var UPI_CFG = {
+  id:   "acoustics1990@okhdfcbank",  /* UPI ID exactly as the bank app shows it */
+  name: "Rohit Mishra",              /* name shown inside the payer's UPI app */
+  note: "Algorhythm support"         /* short note, keep under 40 characters */
+};
+
+var UPI_PRESETS = [50, 100, 250, 500];
+var upiAmt = null;               /* null means "let the payer choose" */
+
+var UPI_UA = (typeof navigator !== "undefined" && navigator.userAgent) || "";
+var UPI_ANDROID = /Android/i.test(UPI_UA);
+var UPI_IOS = /iPad|iPhone|iPod/.test(UPI_UA) ||
+  (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+var UPI_MOBILE = UPI_ANDROID || UPI_IOS;
+
+/* Build a UPI deep link. prefix is the app scheme, "" means the generic upi:// link. */
+function upiURI(prefix, amt){
+  var q = "pa=" + encodeURIComponent(UPI_CFG.id).replace(/%40/g, "@")
+        + "&pn=" + encodeURIComponent(UPI_CFG.name)
+        + "&cu=INR";
+  if (amt != null && amt > 0) q += "&am=" + amt.toFixed(2);
+  if (UPI_CFG.note) q += "&tn=" + encodeURIComponent(UPI_CFG.note);
+  return (prefix || "upi://pay?") + q;
+}
+
+/* Draw the payment QR into the canvas with id "upiQR". Always black on white. */
+function upiDrawQR(){
+  var cv = document.getElementById("upiQR");
+  if (!cv) return;
+  var mat;
+  try { mat = QR.matrix(upiURI("", upiAmt)); }
+  catch (e) { cv.style.display = "none"; return; }
+  cv.style.display = "";
+  var n = mat.length, quiet = 4, span = n + quiet * 2;
+  var scale = Math.ceil(240 / span), px = span * scale;
+  cv.width = px; cv.height = px;
+  cv.style.width = px + "px"; cv.style.height = px + "px";
+  var g = cv.getContext("2d");
+  g.fillStyle = "#ffffff"; g.fillRect(0, 0, px, px);
+  g.fillStyle = "#000000";
+  for (var r = 0; r < n; r++)
+    for (var c = 0; c < n; c++)
+      if (mat[r][c]) g.fillRect((c + quiet) * scale, (r + quiet) * scale, scale, scale);
+  cv.setAttribute("aria-label", "UPI payment QR code for " + UPI_CFG.id);
+}
+
+function upiSetAmt(v){
+  upiAmt = (v == null || isNaN(v) || v <= 0) ? null : v;
+  renderMore();
+}
+
+function upiCustom(inp){
+  var v = parseFloat(inp.value);
+  upiSetAmt(isNaN(v) ? null : v);
+}
+
+function upiCopyId(){
+  var t = UPI_CFG.id;
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    toast("UPI ID copied");
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){ toast("UPI ID copied"); }, fallback);
+  } else fallback();
+}
+
+/* Algorhythm does not ship esc() or toast(), so both are defined here. */
+function esc(s){
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+var upiToastEl = null, upiToastTimer = 0;
+function toast(msg){
+  if (!upiToastEl){
+    upiToastEl = document.createElement("div");
+    upiToastEl.className = "upitoast";
+    upiToastEl.setAttribute("role", "status");
+    document.body.appendChild(upiToastEl);
+  }
+  upiToastEl.textContent = msg;
+  requestAnimationFrame(function(){ upiToastEl.classList.add("on"); });
+  clearTimeout(upiToastTimer);
+  upiToastTimer = setTimeout(function(){ upiToastEl.classList.remove("on"); }, 1900);
+}
+
+/* Attribute-safe href: the raw URI keeps its literal @ and & for the payment
+   apps, the ampersands are entity encoded only for the HTML attribute. */
+function upiHref(prefix, amt){ return upiURI(prefix, amt).replace(/&/g, "&amp;"); }
+
+function upiSupportCard(){
+  var h = '<div class="card">';
+  h += '<p class="mlabel">Support Algorhythm</p>';
+  h += '<p class="about" style="margin:0 0 14px">Algorhythm is free and always will be. '
+    +  'If it has helped your practice and you feel like it, you can send anything you like. '
+    +  'Completely optional.</p>';
+
+  h += '<div class="upiamts">';
+  h += '<button type="button" class="upichip' + (upiAmt == null ? ' on' : '') +
+       '" onclick="upiSetAmt(null)">Any amount</button>';
+  for (var i = 0; i < UPI_PRESETS.length; i++){
+    var p = UPI_PRESETS[i];
+    h += '<button type="button" class="upichip' + (upiAmt === p ? ' on' : '') +
+         '" onclick="upiSetAmt(' + p + ')">\u20b9' + p + '</button>';
+  }
+  h += '</div>';
+
+  if (UPI_ANDROID){
+    h += '<a class="gbtn" href="' + upiHref("", upiAmt) + '">Pay with any UPI app</a>';
+  } else if (UPI_IOS){
+    h += '<div class="upiapps">'
+      +  '<a class="mbtn" href="' + upiHref("gpay://upi/pay?", upiAmt) + '">Google Pay</a>'
+      +  '<a class="mbtn" href="' + upiHref("phonepe://pay?", upiAmt) + '">PhonePe</a>'
+      +  '<a class="mbtn" href="' + upiHref("paytmmp://pay?", upiAmt) + '">Paytm</a>'
+      +  '<a class="mbtn" href="' + upiHref("bhim://pay?", upiAmt) + '">BHIM</a>'
+      +  '</div>';
+  }
+
+  h += '<div class="upiqrwrap"><canvas id="upiQR"></canvas></div>';
+  h += '<p class="hint" style="text-align:center;margin:10px 0 0">'
+    +  (UPI_MOBILE ? 'Or scan this from another phone.' : 'Scan with any UPI app on your phone.')
+    +  '<br><b>' + esc(UPI_CFG.id) + '</b></p>';
+  h += '<button type="button" class="mbtn" style="margin-top:12px" onclick="upiCopyId()">Copy UPI ID</button>';
+  h += '<div class="upiown"><label class="small" for="upiOwn">Or set your own amount</label>'
+    +  '<input id="upiOwn" type="number" inputmode="decimal" min="1" step="1" placeholder="Amount in rupees"'
+    +  ' value="' + (upiAmt == null ? '' : upiAmt) + '" onchange="upiCustom(this)"></div>';
+  h += '</div>';
+  return h;
+}
+
+/* Algorhythm's More tab is static markup, so renderMore() is the host hook the
+   portable upiSetAmt() expects. The rebuild is deferred by one turn of the event
+   loop: the amount input calls this from its change handler, which fires during
+   blur, and replacing the focused node mid blur throws in Chrome. Deferring also
+   keeps a chip tap alive when the tap is what blurred the input. The QR is drawn
+   after the new canvas is in the DOM, as the kit requires. */
+var upiRenderQueued = false;
+function renderMore(){
+  if (upiRenderQueued) return;
+  upiRenderQueued = true;
+  setTimeout(function(){
+    upiRenderQueued = false;
+    var host = document.getElementById('upiHost');
+    if (!host) return;
+    host.innerHTML = upiSupportCard();
+    upiDrawQR();
+  }, 0);
+}
+renderMore();
 
 /* ---------- boot ---------- */
 (async function boot() {
