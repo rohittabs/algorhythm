@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="description" content="A free rhythm sight reading generator. Pick your note values and meter, get a fresh exercise engraved properly, then practise it against a metronome.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Algorhythm">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2399,6 +2410,29 @@ renderMore();
   loadFavs();
 })();
 
+</script>
+<script>
+/* PWA registration. Silent no-op on file:// and on any browser without
+   service workers, so nothing here can break the app itself. */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js', { scope: './' }).then(function (reg) {
+      reg.addEventListener('updatefound', function () {
+        var sw = reg.installing;
+        if (!sw) return;
+        sw.addEventListener('statechange', function () {
+          /* A newer build finished downloading while an old one is running.
+             Take over on the next launch rather than yanking the page away
+             from someone who is mid exercise. */
+          if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+            try { sw.postMessage('skipWaiting'); } catch (e) {}
+          }
+        });
+      });
+    }).catch(function () {});
+  });
+})();
 </script>
 </body>
 </html>

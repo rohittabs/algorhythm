@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Algorhythm in 2 minutes</title>
+<meta name="description" content="A free rhythm sight reading generator for musicians and teachers. Correct engraving, odd meters, no account.">
+<meta name="theme-color" content="#0A0912">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Algorhythm, the sight reading generator">
+<meta property="og:description" content="A free rhythm sight reading generator for musicians and teachers. Correct engraving, odd meters, no account.">
+<meta property="og:image" content="https://rohittabs.github.io/algorhythm/algorhythm-card.png">
+<meta property="og:url" content="https://rohittabs.github.io/algorhythm/slides.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Algorhythm, the sight reading generator">
+<meta name="twitter:description" content="A free rhythm sight reading generator for musicians and teachers. Correct engraving, odd meters, no account.">
+<meta name="twitter:image" content="https://rohittabs.github.io/algorhythm/algorhythm-card.png">
+
+<style>
+:root{
+  --bg:#0A0912;
+  --grad:linear-gradient(120deg,#FF54B0 0%,#C15CE8 52%,#A06BFF 100%);
+  --muted:rgba(255,255,255,.7);
+  --logo:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAADcCAMAAAAshD+zAAABgFBMVEXaptCiX6ZbMZ7XZqWYK5jjyOBtUaaomsirmaGWdJuhXpZcS618JXxnW63MbJCnapVlR6Xbi7cdHbUAAP9pZNzQJZyzZ2f///83NrcjI3+ribr/AP/GdZQyM7P/eHjXcsQrLsHalqJHO7DqYaNbAHC/P39VVVU8O7VVAKp6+tis5bCl7OP/AH+ndsH/AAD29K9FPrEm/+5QRsN29LKqAKqLesk7Q7yfr3+qqsas5XLGqtQ3O8B/AP9//3+/g5jAgpf//wD+/v4AAADQWY9NNquMAI2RSJwvLbDQAJI4MbC2UpTtAZNnPKWnTZZ4AIR2QaKwAJLmXI2FRKFrAHv5F5T6Npf6J5by6PHvZJX8R5jt2OrVZJF/f39VVaqqVarITIkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAl/QxjAAAAYHRSTlP/9Prz///4/xkon1sDKqNcn/8DARj/AwGjA/8BYtMC//gYpxT/BANtAwYFBgL/AQVsA0IFAxNvCAkECZICBEhKAf8A/v7//v7//v7//v7//v/+/v///////v//9wIDA/+/MHx6AAAUTElEQVR42s2dCXfauBbHZYwNCUkIIQlZmrTpNm2nnX3evmG2mhIgpKlTyPL9v8WTZAM21r2SbAO55722c8609W/+d5Ms6xJnCVZ7OHzl/+p9ceNZeXNnxzQnk0nDN4PazuZmufyq+N7/tx7ePNSW8Rwke7A3p+znHy+ePaNQDcS6XYMxFn9k//7pVvaA2cLdHR6yn4rlZxRrMrm9QtmmPxuMkP2+w627pwp39+YnBkb1oliThsy6M+P/QDUscgHvnh5c7ZA548WzHZlecbYpIgUsb3C+2pOCezjkmpmKYEI4H9DgfIcPTwWu9sb3Rg0ygK17yX7w/TML+VLDndOk/2uZkt020qL5eJec73fqDndrhjs85+6oRYbDUTr6f+qeVL7zhzXCHX6kOUTPHSVsDI7RXXaN7iaNvq2HNcGdU7RX+mjdLso2t66Pd74GuDvmkAwtU9mi5qv39m7FcLVXDE2fTA9uivdwukq4i0C1RmNZPrmItzK485+maFnKBsBdti8Nile9Ww0c9chnDC1juEvI2m3DKCcSTxvukAcbjbZs2S4vETiKx3zzftlwb5zfGVojCVw3iW6cjdK1N4vO1lLhWPo3b69uGdvVSnxyCsd8k4p3tzy4Q+dX3yOTuGQjuWy+jYzNf+uJpwFXO+eycbbV+mRYPJ2aR3RckiXJwFbskzPxyjquSdQzyY+sI7lNhpZMuHbMRqPNf6i7JlFmYy7ZSCZbNwufnIm3oUynBvfTK+e/NJPcXmUOd6nJ5rvmH9Xs4GofnWezaEsUb/FHn8N19eDao3ZZcRNCBY5G8E7CTNJ9ZE/fmJiVSoUEVqmYphHw+hsLOmgs7kabamlFAe7BeU/ZJtpwj4+PDdMkxBp79Zh5Y4tUKOOUUJ2N821+UOk1iQKbX91udeA4GLEEVFGjiFNAHTgaeEUFOincxaxyq8umBjYTkQJG+TCX1KEjOmxXqmTjuqaNqYDtWW5RgOMl4SEd3KFTnOjkyURkMz66MFXxSeWCR2S6TTRke2xUEpL5ZlW67bYK20hNOyLJJRN12R4nxKunNI8YbO2GIIV+NWpL6AjKdmEq+yRFq2dixGirGtPuPhncuUaefDQzQvPx8sp0Rayaw3B3H39UzZOZqRbCG8l80jejiLytJMi2646qT2aMxmOvnZfmFE6369yfasMdMjYVr3xMlyFBvBMJHLf2gPaZW7pwh6F1AO6RVn1JFvLNEQQ3GAxGZZCOQAXuP7OlKS6bV1+aoeLN4AaDElQQCJQomW4TCdwSZQuqOpw3OZoPN9gAUiYRH02YJ8p1yRaIR11ztOCco6kNAhvZxXenynBv1BanpL4CI7FqEIOzacrcUoW7CG8qgGjLdknQNUftBTgw7Igw4CZBMsFaEq++IvN41hxFVQuTDezBYFsUdnG403OFgHus1FdoRm4aeEI2zvfhvqoAF67eT4OtXj/JzeKtLYKj0onCjsTZLqS7JY+kvmIrULrRXLlBzHrUMe9lcLXD2VLgCbHRpJkbwT7pq/fXt6cSuFAVeEpsjG7WK4vhqGMe43BBa/L02Lh2CFpP1KgswD38at5OnpxPRugGgPUGdu0eg3vllG+vnihbkFUguF6vR0v5PQxX+1ic3PIC/lRqQIzOHsBwvcHG1ikIFyy+G42nycaqOYJG4Xaj0pHIyaALPN4aZn3NZvQGNsjGpIucNCILvQl+wMRbN5xnC+lmcLvOWzHcg8OEw/YUrPrazcrBaIwu0qeQcI3bQU/zZp8orYqVIKmgcLvhWkdCwr26xdfdmfqXRcyDz5+fJ0oqNoDGLCwdCQuH+uQks4DzSIWBMUuQobxBDmHrhaUjIeEmqHBW1mAJ4WingsGFo45EU+VSndIj5mMIjNmB/LWdJVjdgWg86rYW4c5pqlymU1KwAwr25fMCnCfbuswTYT2A2HjU3S3A8eZkSU455mBfuC3AfbYke0OtFkEcUwg3b1PI9KhJEa1xlTRgX2b2OWZweRmfULKWEI41KhAaa1Om0pH5qwHMK72EYDdfwhZnGwJwVkAGwI25YwJwvdJ01RrA/fTezHbPJAYmZPs8fC588z8jo2YBpRxCa/bsDxG3ZOs4LJukB1OE86JgzMQvyKh0EN18XUfmdSAT4RjY1y9iE7ANzchZGx9sGGbLe1Cxg6Xbdd7N4Wo0nTTSL3Qo2PdvX798paao23A4K3RWftgacosKlwf+Mli6Zq+57ZzO4PB0oiIcaxW/3zCsb2I0OZwQDYYjMFxzmlI43JZj3qaIOA72zbevEBsE50XhFtlaBrxuheFyfpdCgiKXUDim2NX3G25TNmXhGNxwmi9IS8gGwwmjrhmY36UQqVdOELDK1XduUrbPENvQksDBiyK7B8IFfsngPjqm/l6eVbkNyFKxzao4h4uztQi2bAWVs7lfEuaVaM8sTMXUGX2bst2gAacI19KC8wYA2cwvCfNKpIILlzqWeXXLP3v5HmPTCzgFOAt7sQXDcb/kcNgSXNAgkNtbn+1KjQ3RbThrUSC4MbZZBMPxVR2h5Q7LlYICbkXYZgH3LRHbrEUhLSFbHmvZbRiu+adTpXAPzrOJTjrxzBjbTXI2KRy6E9YEyLhf3lM4vK+Me0VlKpxawEnYUsF5ORiOva0j1DeRkIt7pacXcDK2Wf9liOEMfJuvCcK9ZHBo0yzwSpLeKcNsw/wMrqUPNy11TYH96ZySB6c80fVKdbbUcPiu7TjXA+Fo0BGs93oU5EpW4tTZFOA8DK4vWZHYTQRuj8LtTHRaL1NQBb7qrgWU4VpE9uZACOZnlD3ifDB1Xut4t1eZVQHfxmngLBgu9zPNlkW9nVgzlij12CC4vBhuLHtx0ATptikcXMJFIVevZNNSzs1C4WR7igYMV8LhRD5R+a66hlMIOClcXv66DoWD+5NLUUdOvl+lXsOFrYXB9aVwpNmEMwrB+hORw1vfM0wmDM53D08MZ0h3pmC4lw55DybLrnBLz0uxzhkicK1kcLTSwemSFBta+aRev1VqKb+osgVwYzHcJ4W3yCDdPtkA4S7Fr3bMm4QBJ2YL4KxEDQrPKCDcNnkGw4n/5MpNBmuBmHJkCXAlUm5oJUv6GDeZCRfqQRLDWRjcJvwBu7g7GCeq3kNhGZDBteQvdMdILSA74HUKwBtH73sa3fL5fJQtgDsRCteSf+Dl2YngoJc75jftCjccfj7wv/WnNh4TYuaHUXGMZDUcrQW7xATvioDgKt90hTsQfF9tPc9nBAcGXQ6AY9clQC/5CYdTZzOhj5BJHoXrt65V4AwEbgLdXwLCWVrJ5DmWExjeGGotKZyRCq6ZAM67UdftuSQjjPMgXJ+aClxBDy64hgWsMeZXxWRiyjO5Z3hAa9nvq5Q5HA68Uyc13IHOOQEh3PUa4IhS13Wg8xGyJfTKzOG6inAy3fSOiRIRW79vZQkXudcJhBsrwGmeOSoI2frj1cPVb77IqoDueSpDyJb31gBnfvmaLVu9LYJTquGKcIvXjWFwuE/qH8vOi4RLD2eAcPAZS4LD6R9cjm4P9adwxjrgLJTtQP9wptVKDvdJDteNXYh3CQvgfc004KKVoD+3Tyq/F1gVuK6bm8F1NeDqB5kGHE2WfRGcUg1H4XZAOMQpTKR6J7kdpS3STRWuCcA1XwZ7KMLJAZ5yRkkpXChZhuGU+mbhNoPLzYcD7p4cq2aUtMJZfTGcyp9lNUG4Xba1B92rCXd2HsiW6PPBk76QLaeSdkVbez6by/YtwUtDEa+4gdYCiT5Da4vQVGt4B0BjcK+6jQRwJgSX5MuRcT8F3AkMt02KMBziYgRaoCb5usK4FrH1r0dKybIDsbn75L0BwhkJ4NLkykU4I0mZm7Od1YizCV/WC8swnr+rSp1PTsTCqcGNITRaCRwQjt2kacl7lMU9Sn22adPcj8GpJCfSQeHKMJw8o8T2lpO3XsngChBcxy2BcP58DvgPfZ4VHLkWoynChfNJWLYAbgMe/iNtwOKvBXSzpQXpRuEUGpRI8xVh67j7FO53QboMLslGgm78Wet7OO2Ao2x9hf9QVkcMR9nOag75I55RZjeAI0HnHYjfVZmabIhwKt3XvIS77oJXvnT2yJt40M3hsFWP+MCCVhWf7y6I4PJaIReD+4XCPThl5CL6MQInfquvseQZ52E0CtfWWhJEfZJ1ls49OwYMj9pC/JJA74aV1zwk10fYlGr4tBC4i8bzSZUd4N6E4eC/wILg8qr17bqFCqcCZ4Nw7hE/nf4mklEWpwqM4YwCvdVXyilWvt9Cdbu+Lsj9OiesAfwHmk/4RxNlcPJDtw37JQinQOcZ131Mt+trpRoeeKUrgvuNfzRxGgq62DgIxC/N2EmT+bllfFXnneSFu11h2agRNa90BQHnh5z/odImMq9jrJpRIsdnkAcbn+SvUbQpnKVWwaOhNmU7ol7J4GaVToDWbVcSwQ3z4iMMHglvUaJw8u0hA4H7JYC7C9pL8RgSsL/08LNdrbyxePjEin3hDst2LW9QvJwL+CRlnH4cSIuBAc+QyRO1jCI82ZU3pmNPToy2+MACCJdXSSfxTOLDnc2+Wd1yygY8HcdQyigCNvHHftnB2TDcix+YVwafUm90L0HtwGpgKpw3TAzXf23IhRP7JLP5p9TcL+HZP4Y8oyRjQ5WTwtkdF4Q7i3zhX+7CQ5ugqCPYCdhhQrQ53ImOcGGfpL/2vXJ28QQ21siA1qvI2eVhKtkUari96JWdubn3oYsneB2H4SDpDtYIF4+4ENuRL1wA9wD4ZRuVroKeOk/J9tpSjrioT3bY1tB95PaoDwYyjwqQLlgYZMZ2HbGxsnALcO7ZRfT2KFGpC99XDlwnMwy3y2mrQJTt2kP3mUGfnKeT8NVYXQQuD6QuU3ToPGkRiLLlFJ2ys8jGilz09igadQspZWH2AYHoluOT16/bqFO6MBxNJ/ex6+g2utiINAM8p5wN3PUiHMF2YjugT3Lh9hcvEnzrbBrI+DfIMeki5kATrq8gHLomMDph2RbQXkzrQPQKyLB0gjE4yO4za/ufmwb/ICJ9EZAJVzhzEThXdAUkzSlT6cQTRwyV7VY27ZCCPjcYafKQe428VPWaHcQnO0dOVXjt6gY62y6v9KIzAuqTctA8h2Ltfl+u3GvsoCUecJ194bWrXLo2Mtsun+bCXF9S8skwRow0RBPne405ySxTdgQ+GRUuetXxRhcbbYeFnbamjNTgmuYWVHudI+imECYb2/QSX3XMEiY+tc9YxiXVvqYFLmkulzdQ/5AEXDhVLsDRFbmB0mmHXeY2DTixT9IaB14vztoUdGzfaN100bVARyJcFO50q2gY2LzFUe5knWzhtksE19k/rsLDGOi6Dp+4OMqtcRjDicQnO79gwxgoXc3AHXONdJIi0Omc/W8PnRFCcwo2A5TN/FkXndQn3XnHDIyu2ZLklLV55pStA7F1jmSja5zTt0VjJBkkuQ66uU9CcGfFvapsXNRbWuxAn5zGXWFduQT0yWhTCQ76kjnmaA10gW5gmoyXOGhE28MH1DH5TKrcSqu5rC9hTlnbUxnRxruw0eL47uhEQppVjJUNQ7FsuU/ShnlfbSwiLeUSuJE9yBmrGouI98q+U5aEA5yFAy1p2I2gQezBsC170FtN4BU6cp/siAIOgju9/4c47EJzxGwm3vJHkSq4JA24vwkCDhwiy8MOmAMdGrWVs5dc8QoKLilqTfDxvzTsYgOFBfMWc72TZY7/Nc5k7WTkvYfy4OatWVIR+eR8juQSxSuEN81hOPcv4oDDRm5Pk8poJBiVHB4dkzPGSyoA+DaXJJmgcKcPiykTHJRpF5YbbR2EjXYm1WqCMfdbCy00OJKwl7lvFqJJEoMrHh/rj7kPdyr4DNDM8Sga8sI7gna2DyRKGRzNQYF2ozYO12OTVrLCW0BD0iQtcPtQopTCsW1aTieF6/W4eoXUdcGLqYbBudsoGw43pZP45HSoSi83OEnVcFpGroOdC1LqlpXhaEHYaI8U4The0y4krAwWE82FDoeK2Y6dNHC+dhhcfBxCztDno2TNTkd4hh7MJRKfVIAL6Npy2UJ8ORp+lnL8edaJiEzWLMt8UgWO0tGcOdCBo+5J+QZGgUgBx6RgU2+EvuuAdxVe7Et1U4FjdJsjDbS5fzabtlEoWGNPJJdVOLGZYp1mE/6uA+y5igpsKnDs6KKYDkVr8h9y1Jq2bRuUcmqf6D/bTZoYOznws0U8Tf7TWRxAnRjOqW05JX24yM1wC9aEv8tXSJN/QfpJbTin+odTHiyOpu311OFUzFX0Sbp+U2NThOMFzx7Z9hLhXDU4l5aAPcWHVoWjdMXdQUi9JcqGpsmjvymzqcOxCC6vyCeR/cmSIy9vCeCc03fOts1XAOuCYyucvaqzDDjmmn/fXadPHv2s7pLacMw1qXjLlA17HbCv45L6cEy8v+4uUzkQzqVNyZ7mw+rCsa5nY3eQHZiiTx5tOyoNV0o4/neUAPGWBPeCJUmdTJIcjkXehtg3m8vwyRdMtup+ggdNAsfF247hZSJbVh6ZAs455XirgDuiklWrzirhqG++4+ottVd+4TK0vbukz5gYjtac46l6Tf9/GffKLnfI4/3kT5gCjkbC8VS9zNOkG6Ddp3m+VHAU718Ur0Q7zl6m7aTrnv1Asar36Z4uJRyNPfoAfy/t6rulC+4ru+5R6ec0sZYZnOPU2NboNuNL6ZM87GhV+4H6Y5KavQw45p3vOJ+d3Cd9xag7ljjZfSaPlQ0ck68a6JcQjv3C16yahWiZwrHo43wbpd1drY4reDt89PI3lvSrx3fZPVGGcJyPz/HeKJV2c+oBd/bylxKvZnt7d5k+TrZw7D/9vX+IurZNCV+KENmNCgFf7uXL0m/7Nf77ju+rWT9L5nB+57n3zv/Vz3/uU8bd3eg2bI5C7ZZK2z4WUyx7MGb/B9W7WALg3upWAAAAAElFTkSuQmCC");
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%;background:#000}
+body{
+  font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  color:#fff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+
+.stage{height:100dvh;width:100%;display:flex;align-items:center;justify-content:center;background:#000;}
+.feed{
+  position:relative;height:100dvh;width:100%;max-width:480px;background:var(--bg);
+  overflow-y:scroll;overflow-x:hidden;
+  scroll-snap-type:y mandatory;scroll-behavior:smooth;
+  -ms-overflow-style:none;scrollbar-width:none;
+}
+.feed::-webkit-scrollbar{display:none;width:0;height:0}
+@media (min-width:520px){
+  .stage{padding:22px}
+  .feed{height:min(920px,calc(100dvh - 44px));border-radius:42px;box-shadow:0 40px 120px rgba(160,60,200,.35),0 0 0 1px rgba(255,255,255,.06);}
+}
+
+.slide{
+  height:100dvh;width:100%;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  padding:calc(64px + env(safe-area-inset-top)) 30px calc(52px + env(safe-area-inset-bottom));
+  position:relative;overflow-y:auto;overflow-x:hidden;
+  -ms-overflow-style:none;scrollbar-width:none;
+}
+.slide::-webkit-scrollbar{display:none;width:0;height:0}
+@media (min-width:520px){ .slide{height:min(920px,calc(100dvh - 44px))} }
+
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;
+  background:radial-gradient(70% 40% at 15% 12%,rgba(255,84,176,.16),transparent 70%),radial-gradient(60% 42% at 92% 92%,rgba(160,107,255,.22),transparent 72%);}
+
+.inner{position:relative;z-index:1;display:flex;flex-direction:column;gap:20px;margin:auto 0}
+
+.rise{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.slide.inview .rise{opacity:1;transform:none}
+.slide.inview .rise:nth-child(2){transition-delay:.08s}
+.slide.inview .rise:nth-child(3){transition-delay:.16s}
+.slide.inview .rise:nth-child(4){transition-delay:.24s}
+.slide.inview .rise:nth-child(5){transition-delay:.32s}
+.slide.inview .rise:nth-child(6){transition-delay:.4s}
+.slide.inview .rise:nth-child(7){transition-delay:.48s}
+
+h1,h2,p,ul{margin:0}
+.kicker{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(42px,12.4vw,64px);font-weight:850;line-height:.98;letter-spacing:-.03em}
+h2{font-size:clamp(27px,8.4vw,37px);font-weight:820;line-height:1.08;letter-spacing:-.02em}
+.lead{font-size:clamp(19px,5.6vw,22px);font-weight:750;line-height:1.28;letter-spacing:-.01em}
+p{font-size:clamp(16px,4.6vw,18px);line-height:1.5;color:var(--muted);font-weight:500}
+p strong{color:#fff;font-weight:750}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat{font-size:clamp(58px,17vw,118px);font-weight:850;line-height:.86;letter-spacing:-.04em}
+.stat.sm{font-size:clamp(46px,13.4vw,78px)}
+
+.tones{display:flex;flex-direction:column;gap:13px}
+.tone{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:15px 17px}
+.tone .t{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.tone .q{font-size:clamp(16px,4.6vw,18px);font-weight:750;letter-spacing:-.01em;line-height:1.3}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gcell{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:14px 15px}
+.gcell .n{font-size:clamp(24px,7.4vw,29px);font-weight:850;letter-spacing:-.02em;line-height:1}
+.gcell .l{font-size:14px;color:var(--muted);font-weight:600;margin-top:5px;line-height:1.3}
+
+.checks{display:flex;flex-direction:column;gap:12px}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:clamp(15.5px,4.4vw,17px);font-weight:650;line-height:1.34;letter-spacing:-.01em}
+.chk .tick{width:22px;height:22px;border-radius:50%;background:var(--grad);flex:0 0 auto;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -6px rgba(255,84,176,.9)}
+
+.grp{display:flex;flex-direction:column;gap:11px}
+.grow{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:17px;
+  padding:13px 16px;display:flex;align-items:center;gap:14px}
+.grow .gl{font-size:17px;font-weight:800;letter-spacing:-.01em;min-width:76px}
+.dots{display:flex;align-items:center;gap:6px}
+.dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.24);display:block;flex:0 0 auto}
+.dots i.a{width:14px;height:14px;background:var(--grad);box-shadow:0 0 14px rgba(255,84,176,.55)}
+.dots u{display:block;width:8px;flex:0 0 auto}
+
+.engrave{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:16px 14px}
+.engrave svg{display:block;width:100%;height:auto}
+
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--grad);color:#fff;font-size:19px;font-weight:800;padding:17px 26px;border-radius:16px;border:none;cursor:pointer;box-shadow:0 16px 40px -12px rgba(255,84,176,.7);text-decoration:none;letter-spacing:-.01em}
+.cta:active{transform:scale(.98)}
+.copied{font-size:15px;font-weight:700;color:#3ddc97;opacity:0;transition:opacity .3s}
+.copied.on{opacity:1}
+.url{font-size:clamp(16px,4.8vw,20px);font-weight:800;letter-spacing:-.01em;word-break:break-all}
+
+.brandmark{display:flex;align-items:center;gap:13px}
+.brandmark i{width:52px;height:52px;flex:0 0 auto;display:block;background:var(--logo) center/contain no-repeat;filter:drop-shadow(0 6px 18px rgba(255,84,176,.5))}
+.brandmark span{font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+.progress{position:fixed;top:0;left:0;right:0;height:calc(4px + env(safe-area-inset-top));z-index:50;background:transparent;pointer-events:none}
+.progress .track{position:absolute;top:env(safe-area-inset-top);left:0;right:0;height:4px;background:rgba(255,255,255,.12)}
+.progress .barfill{position:absolute;top:env(safe-area-inset-top);left:0;height:4px;width:0;background:var(--grad);transition:width .2s ease}
+@media (min-width:520px){
+  .progress{max-width:480px;left:50%;transform:translateX(-50%);top:22px}
+  .progress .track,.progress .barfill{top:0;border-radius:0 0 4px 4px}
+  .progress{border-radius:42px 42px 0 0;overflow:hidden}
+}
+
+.swipe{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2;color:var(--muted)}
+.swipe span{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.swipe .chev{width:26px;height:26px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-9px);opacity:1}}
+.feed.scrolled .swipe{opacity:0;transition:opacity .4s}
+
+@media (prefers-reduced-motion:reduce){
+  .rise{transition:none;opacity:1;transform:none}
+  .feed{scroll-behavior:auto}
+  .swipe .chev{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="progress"><div class="track"></div><div class="barfill" id="barfill"></div></div>
+<div class="stage">
+<div class="feed" id="feed">
+
+  <section class="slide">
+    <div class="inner">
+      <div class="brandmark rise"><i></i><span>Algorhythm</span></div>
+      <h1 class="gt rise">Rhythms you have never seen.</h1>
+      <p class="lead rise" style="color:#fff">A sight reading generator that writes them properly.</p>
+      <p class="rise">Free. No account. Add it to your home screen and it works offline.</p>
+    </div>
+    <div class="swipe">
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+      <span>Swipe up</span>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <p class="kicker rise">The trouble with a rhythm book</p>
+      <div class="stat sm gt rise">One look.</div>
+      <p class="lead rise" style="color:#fff">That is all any exercise gives you.</p>
+      <p class="rise">The second time through you are remembering it, not reading it. Two hundred exercises means two hundred honest first attempts, and then the book is finished.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <h2 class="rise">Algorhythm does not run out</h2>
+      <p class="rise">Tick the note values you want to drill. Set the meter and the number of bars. Tap Generate.</p>
+      <p class="rise"><strong>A new exercise appears, engraved properly, every single time.</strong></p>
+      <p class="lead gt rise">So tap it again.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <p class="kicker rise">Why most random rhythm makers are useless</p>
+      <h2 class="rise">Picking the notes is the easy half</h2>
+      <div class="engrave rise">
+        <svg viewBox="0 0 230 208" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six eighth notes in six eight, beamed in twos and then beamed in threes">
+          <defs><linearGradient id="ag" gradientUnits="userSpaceOnUse" x1="16" y1="114" x2="212" y2="200"><stop offset="0" stop-color="#FF54B0"/><stop offset="1" stop-color="#A06BFF"/></linearGradient></defs>
+
+          <g stroke="rgba(255,255,255,.24)" stroke-width="1" shape-rendering="crispEdges">
+            <line x1="12" y1="32" x2="216" y2="32"/><line x1="12" y1="41" x2="216" y2="41"/><line x1="12" y1="50" x2="216" y2="50"/><line x1="12" y1="59" x2="216" y2="59"/><line x1="12" y1="68" x2="216" y2="68"/>
+            <line x1="215" y1="32" x2="215" y2="68" stroke-width="2"/>
+          </g>
+          <g fill="rgba(255,255,255,.45)" font-family="Georgia,'Times New Roman',serif" font-size="19" font-weight="700" text-anchor="middle">
+            <text x="27" y="48">6</text><text x="27" y="66">8</text>
+          </g>
+          <g fill="rgba(255,255,255,.45)">
+            <ellipse cx="50" cy="50" rx="6.4" ry="4.7" transform="rotate(-22 50 50)"/>
+            <ellipse cx="72" cy="50" rx="6.4" ry="4.7" transform="rotate(-22 72 50)"/>
+            <ellipse cx="112" cy="50" rx="6.4" ry="4.7" transform="rotate(-22 112 50)"/>
+            <ellipse cx="134" cy="50" rx="6.4" ry="4.7" transform="rotate(-22 134 50)"/>
+            <ellipse cx="174" cy="50" rx="6.4" ry="4.7" transform="rotate(-22 174 50)"/>
+            <ellipse cx="196" cy="50" rx="6.4" ry="4.7" transform="rotate(-22 196 50)"/>
+            <rect x="55.4" y="16" width="1.9" height="34"/><rect x="77.4" y="16" width="1.9" height="34"/>
+            <rect x="117.4" y="16" width="1.9" height="34"/><rect x="139.4" y="16" width="1.9" height="34"/>
+            <rect x="179.4" y="16" width="1.9" height="34"/><rect x="201.4" y="16" width="1.9" height="34"/>
+            <rect x="55.4" y="16" width="23.9" height="5.5"/>
+            <rect x="117.4" y="16" width="23.9" height="5.5"/>
+            <rect x="179.4" y="16" width="23.9" height="5.5"/>
+          </g>
+          <text x="12" y="94" fill="rgba(255,255,255,.5)" font-family="system-ui,-apple-system,sans-serif" font-size="12.5" font-weight="700">Beamed in twos</text>
+
+          <g stroke="rgba(255,255,255,.24)" stroke-width="1" shape-rendering="crispEdges">
+            <line x1="12" y1="136" x2="216" y2="136"/><line x1="12" y1="145" x2="216" y2="145"/><line x1="12" y1="154" x2="216" y2="154"/><line x1="12" y1="163" x2="216" y2="163"/><line x1="12" y1="172" x2="216" y2="172"/>
+            <line x1="215" y1="136" x2="215" y2="172" stroke-width="2"/>
+          </g>
+          <g fill="#fff" font-family="Georgia,'Times New Roman',serif" font-size="19" font-weight="700" text-anchor="middle">
+            <text x="27" y="152">6</text><text x="27" y="170">8</text>
+          </g>
+          <g fill="url(#ag)">
+            <ellipse cx="50" cy="154" rx="6.4" ry="4.7" transform="rotate(-22 50 154)"/>
+            <ellipse cx="72" cy="154" rx="6.4" ry="4.7" transform="rotate(-22 72 154)"/>
+            <ellipse cx="94" cy="154" rx="6.4" ry="4.7" transform="rotate(-22 94 154)"/>
+            <ellipse cx="146" cy="154" rx="6.4" ry="4.7" transform="rotate(-22 146 154)"/>
+            <ellipse cx="168" cy="154" rx="6.4" ry="4.7" transform="rotate(-22 168 154)"/>
+            <ellipse cx="190" cy="154" rx="6.4" ry="4.7" transform="rotate(-22 190 154)"/>
+            <rect x="55.4" y="120" width="1.9" height="34"/><rect x="77.4" y="120" width="1.9" height="34"/><rect x="99.4" y="120" width="1.9" height="34"/>
+            <rect x="151.4" y="120" width="1.9" height="34"/><rect x="173.4" y="120" width="1.9" height="34"/><rect x="195.4" y="120" width="1.9" height="34"/>
+            <rect x="55.4" y="120" width="45.9" height="5.5"/>
+            <rect x="151.4" y="120" width="45.9" height="5.5"/>
+          </g>
+          <text x="12" y="198" fill="url(#ag)" font-family="system-ui,-apple-system,sans-serif" font-size="12.5" font-weight="700">Beamed in threes</text>
+        </svg>
+      </div>
+      <p class="rise">The same six notes, both times. <strong>Only the second one is 6/8.</strong> A rhythm written the wrong way is a rhythm nobody can read at sight.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <h2 class="rise">So it engraves them the way a person would</h2>
+      <div class="checks rise">
+        <div class="chk"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Beams that break at the beat, never across it</div>
+        <div class="chk"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Beat grouping taken from the meter you asked for</div>
+        <div class="chk"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Real brackets and numerals over the tuplets</div>
+        <div class="chk"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Ties written across the beat line, the way syncopation is notated</div>
+        <div class="chk"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Rests that follow the shape of the bar</div>
+        <div class="chk"><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>The swing equivalence mark at the head of the sheet</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <p class="kicker rise">Odd meters are not an afterthought</p>
+      <h2 class="rise">7/8 is a question, not an answer</h2>
+      <p class="rise">Ask for seven eighths and Algorhythm asks you back. The accents, the beaming and the click all follow whichever one you pick.</p>
+      <div class="grp rise">
+        <div class="grow"><span class="gl">3 + 2 + 2</span><span class="dots"><i class="a"></i><i></i><i></i><u></u><i class="a"></i><i></i><u></u><i class="a"></i><i></i></span></div>
+        <div class="grow"><span class="gl">2 + 3 + 2</span><span class="dots"><i class="a"></i><i></i><u></u><i class="a"></i><i></i><i></i><u></u><i class="a"></i><i></i></span></div>
+        <div class="grow"><span class="gl">2 + 2 + 3</span><span class="dots"><i class="a"></i><i></i><u></u><i class="a"></i><i></i><u></u><i class="a"></i><i></i><i></i></span></div>
+      </div>
+      <p class="rise">Every meter from one beat to fifteen, over 2, 4 or 8.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <h2 class="rise">Then practise it properly</h2>
+      <div class="grid rise">
+        <div class="gcell"><div class="n gt">40 to 208</div><div class="l">BPM, with a swinging needle and a lamp on every beat</div></div>
+        <div class="gcell"><div class="n gt">Count-in</div><div class="l">one full bar before the exercise starts</div></div>
+        <div class="gcell"><div class="n gt">8ths, 16ths</div><div class="l">subdivision clicks between the beats</div></div>
+        <div class="gcell"><div class="n gt">Loop</div><div class="l">round and round until it is yours</div></div>
+      </div>
+      <p class="rise">Underneath all of it sits a tunable drone, twenty four pitches, so rhythm practice can double as intonation practice.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <p class="kicker rise">One switch does the real work</p>
+      <h2 class="rise">Play along, on or off</h2>
+      <div class="tones rise">
+        <div class="tone"><div class="t">On</div><div class="q">You hear the rhythm played for you. That is learning it.</div></div>
+        <div class="tone"><div class="t">Off</div><div class="q">You hear only the steady beat. That is reading it.</div></div>
+      </div>
+      <p class="rise"><strong>The beat never stops either way.</strong> Read it cold with the switch off, then flick it on and find out whether you were right.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <p class="kicker rise">For teachers</p>
+      <h2 class="rise">Print gives you clean sheets</h2>
+      <p class="rise">No interface, no colour, no clutter. Generate ten exercises in the meter your class keeps tripping over and hand them out at the door.</p>
+      <p class="rise">Or send them the link and let them generate their own for the rest of the week.</p>
+      <p class="lead gt rise">Nobody has to go near an app store.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <p class="kicker rise">Nothing is sent anywhere</p>
+      <h2 class="rise">There is no server</h2>
+      <p class="rise">No account, no sign up, no uploads. The exercises you save and the settings you choose sit in your own browser and nowhere else.</p>
+      <p class="rise">Add it to the home screen once and it keeps generating with the plane mode on.</p>
+      <p class="lead gt rise">Your practice is nobody else's data.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <h2 class="rise">What is inside</h2>
+      <div class="grid rise">
+        <div class="gcell"><div class="n gt">13</div><div class="l">note values, dotted and triplet included</div></div>
+        <div class="gcell"><div class="n gt">45</div><div class="l">time signatures</div></div>
+        <div class="gcell"><div class="n gt">1 to 64</div><div class="l">bars in a single exercise</div></div>
+        <div class="gcell"><div class="n gt">20</div><div class="l">exercises kept in the Library</div></div>
+      </div>
+      <p class="rise">Plus rests, ties, straight and swing feel, nine beat units, a timeline view for the notation-shy, and light, dark or whatever your phone is already doing.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <h2 class="rise">One thing to do today</h2>
+      <p class="rise">Because everything lives on your device, <strong>nothing is backed up for you.</strong> Clear your browser data and the Library goes with it.</p>
+      <p class="lead rise" style="color:#fff">Open More, tap "Download backup file", and keep the file somewhere safe.</p>
+      <p class="rise">Thirty seconds. Do it now, while you are thinking about it.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="inner">
+      <div class="brandmark rise"><i></i></div>
+      <h1 class="gt rise" style="font-size:clamp(40px,12vw,66px)">Generate one now.</h1>
+      <p class="url rise">rohittabs.github.io/algorhythm</p>
+      <p class="lead rise" style="color:#fff">Free forever. Four bars of quarters and eighths is enough to start.</p>
+      <div class="rise" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:6px">
+        <button class="cta" id="copyBtn">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy link
+        </button>
+        <span class="copied" id="copied">Copied</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var feed=document.getElementById('feed');
+  var slides=[].slice.call(feed.querySelectorAll('.slide'));
+  var barfill=document.getElementById('barfill');
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('inview'); });
+  },{root:feed,threshold:.55});
+  slides.forEach(function(s){ io.observe(s); });
+  slides[0].classList.add('inview');
+
+  function onScroll(){
+    var max=feed.scrollHeight-feed.clientHeight;
+    var p=max>0?feed.scrollTop/max:0;
+    barfill.style.width=(p*100)+'%';
+    if(feed.scrollTop>40) feed.classList.add('scrolled');
+  }
+  feed.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  function idx(){ return Math.round(feed.scrollTop/slides[0].offsetHeight); }
+  function goto(i){ i=Math.max(0,Math.min(slides.length-1,i)); feed.scrollTo({top:i*slides[0].offsetHeight,behavior:'smooth'}); }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); goto(idx()+1); }
+    else if(e.key==='ArrowUp'||e.key==='PageUp'){ e.preventDefault(); goto(idx()-1); }
+    else if(e.key==='Home'){ e.preventDefault(); goto(0); }
+    else if(e.key==='End'){ e.preventDefault(); goto(slides.length-1); }
+  });
+
+  var link='https://rohittabs.github.io/algorhythm';
+  var btn=document.getElementById('copyBtn'), copied=document.getElementById('copied'), t;
+  btn.addEventListener('click',function(){
+    function ok(){ copied.classList.add('on'); clearTimeout(t); t=setTimeout(function(){copied.classList.remove('on');},1800); }
+    function fallback(){ var ta=document.createElement('textarea'); ta.value=link; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(link).then(ok).catch(fallback); }
+    else fallback();
+  });
+})();
+</script>
+</body>
+</html>

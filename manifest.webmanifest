@@ -1,0 +1,20 @@
+{
+  "name": "Algorhythm",
+  "short_name": "Algorhythm",
+  "description": "A rhythm sight reading generator. Pick your note values and meter, get a fresh exercise engraved properly, practise it against a metronome.",
+  "id": "/algorhythm/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#F2F2F7",
+  "theme_color": "#F2F2F7",
+  "categories": ["education", "music"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
