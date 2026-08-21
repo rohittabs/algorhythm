@@ -1,88 +1,215 @@
-# Algorhythm v2.0
+<div align="center">
 
-Algorhythm is a rhythm sight-reading generator that lives entirely in one self-contained HTML file. Open it in a browser and it works, no server, no install, no dependencies. It is deployed at rohittabs.github.io/algorhythm.
+<img src="icons/icon-192.png" width="104" height="104" alt="Algorhythm">
 
-This document covers the app in detail: what it does, how the engine works, how the file is built, and what changed in v2.0.
+# Algorhythm
 
-## What it does
+**A free sight reading generator for musicians, teachers and students.**
+Endless rhythm exercises with real engraving, plus tab and grand staff.
 
-Algorhythm generates rhythm exercises from a set of note values you pick, in a time signature you choose, engraves them as real notation (proper beat grouping, beaming, tuplets, ties, swing markings), and lets you practice them against a metronome with count-in, subdivision clicks, a "play along" click track, loop, and a tunable drone pad. Exercises can be saved to a library, backed up to a JSON file, restored on another device, and printed as clean sheet music.
+### [Open Algorhythm](https://rohittabs.github.io/algorhythm)
 
-It is built for anyone working on rhythm reading, not just students of a particular teacher.
+![license](https://img.shields.io/badge/license-MIT-555555?style=flat-square)
+![price](https://img.shields.io/badge/price-free%20forever-2FBF71?style=flat-square)
+![whole app](https://img.shields.io/badge/whole%20app-1%20file-e6338e?style=flat-square)
+![account](https://img.shields.io/badge/account-not%20needed-7b3ff2?style=flat-square)
+![tracking](https://img.shields.io/badge/tracking-none-555555?style=flat-square)
+![works](https://img.shields.io/badge/works-offline-3B9EF5?style=flat-square)
+
+[Take the two minute tour](https://rohittabs.github.io/algorhythm/slides.html)
+
+</div>
+
+---
+
+## What is this?
+
+Algorhythm is a web app that lives in a single HTML file. Open a link in a browser, add it to a home screen like a real app, and generate a fresh sight reading exercise every time you sit down to practice. Nothing is uploaded, nothing is tracked, and your saved exercises stay on your own device.
+
+It writes rhythm the way a publisher would: correct beat grouping, correct beaming, tuplets, ties and swing markings. Turn on tablature and every note also gets a pitch, so a rhythm study becomes a reading study for guitar or ukulele. Turn on grand staff mode and you get a braced treble and bass system for piano, each hand with its own line.
+
+**Live link:** https://rohittabs.github.io/algorhythm
+
+---
+
+## New in v3.0
+
+### Real engraving glyphs
+
+Clefs, accidentals and rests are now drawn with **Bravura**, the reference music font used by professional notation software. Bravura is designed so one staff space equals 0.25em, so the app scales the font to exactly four times the staff space and the symbols sit correctly at any size.
+
+### Grand staff mode for piano and keyboard
+
+A braced treble and bass system with a proper key signature, where each hand gets its own independent rhythm and its own line. Pick the key, the scale and a reading level, and the generator keeps the two hands musically consistent.
+
+### Tab and pitch on guitar and ukulele
+
+Every note takes a pitch from the scale you choose: all 12 keys, major, natural minor, major and minor pentatonic, or blues. Read it in open position or in any of the five shapes, with a fretboard diagram showing the position and its roots.
+
+---
+
+## What the app can do
+
+**Rhythm**
+
+- Any time signature, including irregular meters with a selectable grouping
+- Correct beat grouping, beaming, tuplets and ties
+- Straight or swing feel, with the swing marking engraved
+- Rests on or off
+- 1 to 64 bars
+
+**Pitch and instrument**
+
+- Guitar in standard EADGBE, ukulele in re-entrant high-G GCEA
+- All 12 keys across major, natural minor, major and minor pentatonic, and blues
+- Open position plus the five CAGED shapes on guitar, CAGFD on ukulele
+- Fretboard diagram for the chosen position, with roots highlighted
+- Grand staff mode with real key signatures and three reading levels
+
+**Practice**
+
+- Metronome with subdivisions and a count-in
+- Play along: the rhythm click, the plucked instrument, or both, switchable mid-take
+- Tunable drone with its own volume
+- Loop
+- Tempo takes effect while you are playing. Drag the slider, or double tap the big number to type one.
+
+**Everything else**
+
+- Save exercises to the Library and come back to them
+- Print or export a PDF that shows the staves, meter and tempo mark with no app chrome
+- Backup and restore your library as a file
+- Light, dark or system appearance
+- Notation sizes itself to the screen, so a phone gets fewer bars per line instead of a shrunken system
+- Installable, and works with no connection at all
+
+---
 
 ## The four tabs
 
-**Create.** Pick note values from a grid of chips (each chip shows the actual note glyph). Set the number of bars (1 to 64), the time signature (numerator 1 to 15 over a denominator of 2, 4, or 8), and, for meters where it applies, the beat grouping. Choose a feel: Straight, Swing 8th, or Swing 16th. Optionally include rests and tied notes. Press Generate.
+### Create
 
-**Practice.** Shows the engraved staff (or a timeline dot-grid view, toggled from the same screen) for the generated exercise. Transport controls: play/stop, metronome on/off, tempo slider (40 to 208 BPM), beat unit selector, subdivision clicks (off, 8ths, 16ths), count-in, play along, and loop. A drone section lets you turn on a sustained pad, pick its pitch, and set its volume. Below the staff: Save to Library, Regenerate (new exercise with the same settings), and Print / PDF.
+Where the exercise is built. Choose the note values you want to see, the time signature and grouping, the number of bars, straight or swing, rests and ties. Two optional cards live here: **Tablature**, which adds a tab stave and pitches under the notation, and **Piano and keyboard**, which switches to the braced grand staff instead. Tap Generate.
 
-**Library.** Grid of saved favorites, each restorable with a tap. Empty state points you back to the Practice tab's Save button.
+### Practice
 
-**More.** Appearance (Light / Dark / System), Backup and share (download/restore a JSON backup), About text, and Erase all data.
+The big round button plays and stops. Around it sit the tempo, the meter, subdivisions, count-in, loop and the drone. Play along decides what you actually hear: the metronome beat always plays, and the toggle controls whether the exercise rhythm is sounded with it. Below that is the music itself, with buttons to favourite, regenerate and print.
 
-## Note values supported
+### Library
 
-Whole, half, quarter, 8th, 16th, **32nd** (new in v2.0), dotted half, dotted quarter, dotted 8th, dotted 16th, and triplets at the quarter, 8th, and 16th level. Rests are available for whole, half, quarter, 8th, and 16th durations. All of these have real PNG artwork (not drawn glyphs), baked in as base64 so the file has zero external asset dependencies.
+Everything you saved. Open one and it loads straight back into Practice at the settings it was written with.
 
-## Time signatures and grouping
+### More
 
-Any numerator 1 through 15 over a denominator of 2, 4, or 8. For meters where the beat grouping is ambiguous (denominator 8 with numerator ≥ 4, or denominator 4 with numerator ≥ 5), a Grouping dropdown appears listing every valid composition of the bar into groups of 2 and 3 (e.g. 7/8 offers 3+2+2, 2+3+2, 2+2+3). A sensible default is pre-selected (7/8 defaults to 3+2+2). Whatever grouping is chosen drives four things simultaneously: how notes are beamed, where accent marks and metronome accent clicks land, where the beat lamps light up during playback, and how the timeline view numbers its beats.
+Appearance, backup and restore, a short About, and the Support card.
 
-## Generation engine
+---
 
-The generator works bar by bar. For each bar it has a table of "cells", pre-built combinations of notes (and occasionally rests) that fill a given beat-length exactly, tagged with which note values they require and correctly beamed and tupleted. It weights and picks cells so that, across the whole exercise, every note value you selected actually appears at least once, while respecting the values that are achievable in the chosen meter (some values are silently skipped if they can't fit, and you're told which ones). Ties are added afterward as a separate pass that joins a note across a beat boundary, matched with correct playback behavior so the tied note actually rings through rather than re-triggering.
+## Files in this repository
 
-## Notation rendering
+| File | Purpose |
+| --- | --- |
+| `index.html` | the whole app: markup, styles, engraving, audio |
+| `slides.html` | the two minute tour |
+| `manifest.webmanifest` | app name, icons, colours, standalone display |
+| `sw.js` | service worker, offline cache |
+| `icons/` | app icons, including a maskable one for Android |
+| `fonts/` | Bravura music font (SIL OFL) for clefs, accidentals and rests |
+| `support-qr.png` | UPI QR shown in the Support card |
+| `.nojekyll` | stops GitHub Pages running the files through Jekyll |
 
-The staff is drawn as inline SVG, built directly from the exercise data: noteheads and rests are the real PNG artwork positioned by their embedded notehead-center metadata, stems and beams are computed from the beat grouping, and triplet numerals are baked into the triplet artwork itself (bold italic serif, via PIL at build time) rather than added as separate SVG text. An alternate Timeline view renders the same exercise as a dot-grid, one dot per pulse, with duration trails, useful for feeling subdivisions rather than reading noteheads.
+---
 
-## Audio engine
+## How to install
 
-Four independent gain buses feed one master gain node: the metronome beat (busMetro), the play-along exercise clicks (busAlong), the subdivision pulse (busPulse), and the count-in (busCount). Because these are live gain nodes rather than pre-scheduled one-shot sounds, toggling Play Along or Count-in mid-playback changes what you hear immediately (via setTargetAtTime ramps) without restarting or re-scheduling anything. The metronome's steady beat is always audible whenever the metronome is on, regardless of the Play Along toggle: Play Along only controls whether the exercise's own rhythm notes are added on top of that beat. Count-in fires only on the first pass through a loop, tracked with an explicit isFirst flag rather than inferred from playback state, because state inference proved unreliable across the loop boundary. Loop state itself is polled live every 150ms so toggling Loop takes effect immediately.
+Open the site, then:
 
-The drone pad is a richer synthesis than a simple oscillator: an asymmetric pulse wave, stacked intervals, and detuned oscillator pairs, so it functions as a proper practice reference tone rather than a flat sine.
+### iPhone or iPad
+Open the link in Safari, tap the Share button, scroll down, tap **Add to Home Screen**, then tap Add.
 
-Swing is available as a third feel option (alongside Straight and Swing 8th): Swing 16th swings the sixteenth-note subdivision instead of the eighth, with its own drawn swing-equivalence marking above the staff.
+### Android phone or tablet
+Open the link in Chrome. The browser offers **Install app**, either as a banner or from the three dot menu.
 
-## Design and appearance
+### Windows, Mac or Linux computer
+Open the link in Chrome or Edge and click the install icon at the right of the address bar.
 
-**v2.0 adds a full Light / Dark / System appearance mode.** The setting is applied by reading a `data-theme` attribute on the root HTML element, which every color in the stylesheet is defined relative to (via CSS custom properties: background, card surfaces, ink/text, hairline borders, the coral-to-purple gradient accent, warning and danger colors, all have separate light and dark values). "System" follows the OS-level `prefers-color-scheme` media query live, so if you change your device's appearance setting while the app is open, it updates without a reload. The choice is remembered in localStorage and re-applied on load, before the rest of the page even renders, to avoid a flash of the wrong theme. Note glyph artwork (originally drawn for a light background) is inverted via a CSS filter when dark mode is active so it stays legible.
+### Any other device with a modern browser
+Just use the link. Installing only adds the icon and the offline copy, nothing about the app itself changes.
 
-The overall look is a light lavender-grey background with white rounded cards, a coral-pink-to-violet gradient used for accents and active states, and a floating navigation bar.
+---
 
-**v2.0 also adds a genuinely responsive navigation layout**, not just a resized version of the mobile one. Below 900px width, navigation is the original floating pill-shaped bottom tab bar (Create / Practice / Library / More) with frosted-glass blur. At 900px and above, the same nav element is restyled in place into a fixed 280px-wide left sidebar with the tabs stacked vertically, and the app's brand mark (logo and wordmark) physically relocates from the top of the page into the top of that sidebar via a small script that runs on load and on every resize across the breakpoint. A small "v2.0" version tag is appended to the bottom of the sidebar only in the wide layout.
+## Data and privacy
 
-## Storage and persistence
+There is no account, no server and no analytics. Your saved exercises and settings live in your own browser's local storage on that one device. Nothing is ever sent anywhere.
 
-Settings (every control on the Create and Practice tabs) are persisted with a 250ms debounce so rapid changes don't spam writes. Favorites and settings are both written through a small storage adapter that tries, in order, the host page's artifact key-value storage API, then browser localStorage, then falls back to an in-memory object if neither is available, so the app degrades gracefully rather than crashing in restrictive embeds. Backup and Restore package favorites and settings together into one downloadable JSON file; Restore reads that file back in and repopulates both stores. Erase All Data clears both the favorites and settings keys.
+That also means clearing your browser data, or deleting the app, removes them. Use **Backup** in the More tab before you do either, and **Restore** to bring them back.
 
-## Print
+---
 
-The Print / PDF button calls the browser's native print dialog. A dedicated `@media print` stylesheet hides everything except the currently rendered staff (brand header, tab navigation, transport controls, action buttons, and every tab other than Practice are hidden), so what prints is a clean, undecorated sheet of the exercise, in black notation on a plain white background regardless of the active app theme.
+## Notes on the theory
 
-## Build pipeline
+Guitar positions use the five CAGED shapes. Each is a five fret window anchored on the fret where that shape's root falls, which reproduces the standard positions (C major gives frets 0, 3, 5, 8, 10). The ukulele's four strings make the E shape impractical, so it uses the accepted **CAGFD** set (C major gives 0, 3, 5, 7, 10).
 
-The shipped `index.html` is not written by hand as one file; it's assembled from parts by a Python build script:
+Re-entrant high-G tuning puts some pitches in two places at once. The generator picks whichever position keeps your hand still, so the tab stays playable.
 
-- `part_app_head.html`, `gen_block.txt`, `part_engrave.txt`, `part_sound.js`, `part_app_ui.js` are concatenated in that order.
-- A `glyphs.json` file (produced separately by processing the source PNG artwork with PIL into base64 data URIs, including baking triplet numerals into the triplet images) is injected by a straightforward string replacement of a `__GLYPHS_JSON__` placeholder in the assembled output.
-- Because the pipeline patches text via Python heredocs, literal `\n` sequences have occasionally leaked into the output as text instead of being interpreted as newlines; the build includes a post-process cleanup pass specifically to catch and fix this.
-- `node --check` is run against the extracted `<script>` contents as a mandatory verification step before any build is considered shippable.
+The grand staff maps pitch to a diatonic step number (7 x octave + letter index), with the treble bottom line at E4 and the bass bottom line at G2. Bass key signature positions are the treble ones minus fourteen steps, which is two octaves. Middle C therefore falls one ledger line below the treble and one above the bass, the same pitch seen from either staff.
 
-## What's new in v2.0, at a glance
+Reading levels were set by measuring ledger line load, counted in C major:
 
-- Light / Dark / System appearance mode, with live OS-preference tracking and no flash-of-wrong-theme on load.
-- Responsive desktop layout: the bottom pill nav becomes a fixed left sidebar at 900px+, with the brand mark relocating into it and a version tag appended.
-- 32nd notes (thirtysecond) added as a full note value, including its own beaming (three beams), its own dedicated cells, and combination cells pairing it with 8th, 16th, and dotted-16th notes.
+| Level | Right hand | Left hand | Notes on ledger lines |
+| --- | --- | --- | --- |
+| Beginner | C4-A5 | G2-C4 | 2 of 13 (RH), 1 of 11 (LH), never more than one line |
+| Intermediate | A3-C6 | C2-E4 | 6 of 17 each hand, some with two |
+| Advanced | F3-E6 | C2-G4 | 10 of 21 (RH), 8 of 19 (LH), some with three |
 
-## Known working principles carried forward from v1.0
+So Beginner keeps almost everything between the staff lines, and each step up trades that for range.
 
-- Toggling audio mid-playback requires live gain buses, not pre-scheduled audio.
-- Count-in loop correctness comes from explicit pass-indexing (`isFirst`), not from inferring state.
-- Irregular meter grouping has to propagate through every visual and audio layer at once, or the parts disagree with each other.
-- Heredoc-based Python patching can leak literal `\n` into output; always run the cleanup pass.
-- `node --check` on the extracted script is a required step before shipping, not an optional nicety.
+---
 
-## Terminology notes
+## Technical details
 
-The sustained reference tone is called "drone", not "shruti". The app is written for anyone practicing rhythm, so copy avoids "students" or classroom-specific language. The Play Along toggle controls whether the exercise's own rhythm notes are heard on top of the metronome, not whether the metronome itself is heard.
+The app is one HTML file with no build step at runtime and no framework. Notation is drawn as SVG. Sound uses the Web Audio API, with separate buses for the metronome, the play along instrument, the subdivision pulse and the count-in, so a toggle takes effect on the next beat rather than at the end of the take.
+
+Engraving glyphs come from **Bravura** (Steinberg, SIL Open Font License 1.1), see `fonts/Bravura-LICENSE.txt`.
+
+### Deploying on GitHub Pages
+
+1. Put these files in your repository, either at the root, in a `/docs` folder, or in a subfolder.
+2. Go to **Settings, then Pages**, set Source to *Deploy from a branch*, and pick the branch and folder.
+3. Wait for the build, then open the published URL.
+
+Paths are all relative, so it works from a repository subfolder as well as from a domain root.
+
+> A service worker needs HTTPS. GitHub Pages serves HTTPS, so installing and offline mode work there. Opening `index.html` from your filesystem runs the app but does not register the service worker.
+
+### Updating
+
+Edit `index.html`, then bump `CACHE` in `sw.js` so installed copies fetch the new build instead of serving the old cache. It currently reads `algorhythm-v3.0.0`, so the next patch deploy would be `algorhythm-v3.0.1`. The version label in the rail comes from `rv.textContent` in `index.html` and reads `v3.0`, so bump that on minor and major releases too.
+
+Miss the cache bump and anyone who installed the app keeps the cached shell. The fetch handler is network first for navigations, so an online visitor still gets the new page, but an offline one stays on the old build until the cache name changes.
+
+---
+
+## Version history
+
+### v3.0.0, current release
+Bravura engraving for clefs, accidentals and rests. Grand staff mode for piano and keyboard, with real key signatures, three reading levels and an independent rhythm for each hand. Tab and pitch for guitar and ukulele across all 12 keys and five scale types, in open position and the CAGED and CAGFD shapes, with a fretboard diagram. Installable as an app with full offline support.
+
+### v2.0
+First public release. Rhythm generation with correct beat grouping, beaming, tuplets, ties and swing markings, any time signature including irregular meters, metronome with subdivisions and count-in, play along, tunable drone, loop, library, printing and light or dark appearance.
+
+---
+
+## License
+
+MIT for the app's own code. Use it, change it, share it, teach with it.
+
+Bravura is a separate work by Steinberg Media Technologies GmbH, licensed under the SIL Open Font License 1.1 and redistributed here under that license. See `fonts/Bravura-LICENSE.txt`.
+
+---
+
+<div align="center">
+
+*Read anything.*
+
+</div>

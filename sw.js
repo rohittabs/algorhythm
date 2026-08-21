@@ -1,100 +1,54 @@
-/* Algorhythm service worker.
-   Bump BUILD on every deploy. That single string is what forces every
-   installed device to throw away its old copy and fetch the new one. */
-const BUILD = 'algorhythm-2026-08-10';
-const SHELL = BUILD + '-shell';
-const FONTS = BUILD + '-fonts';
-
+/* Algorhythm service worker -- offline-first.
+   Bump CACHE when you deploy so clients pick up the new build. */
+const CACHE = 'algorhythm-v3.0.0';
 const ASSETS = [
-  './',
-  './index.html',
-  './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-maskable-512.png',
-  './apple-touch-icon-180.png'
+  './', './index.html', './manifest.webmanifest',
+  './support-qr.png',
+  './fonts/Bravura.woff2', './fonts/Bravura.woff',
+  './icons/icon-192.png', './icons/icon-512.png',
+  './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'
 ];
 
-self.addEventListener('install', function (e) {
+self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(SHELL).then(function (c) {
-      /* addAll is all-or-nothing, so add one at a time and let a single
-         missing file (a renamed icon, say) fail without killing the install */
-      return Promise.all(ASSETS.map(function (u) {
-        return c.add(new Request(u, { cache: 'reload' })).catch(function () {});
-      }));
-    }).then(function () { return self.skipWaiting(); })
+    caches.open(CACHE)
+      .then(c => Promise.allSettled(ASSETS.map(a => c.add(new Request(a, { cache: 'reload' })))))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', function (e) {
+self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys().then(function (keys) {
-      return Promise.all(keys.map(function (k) {
-        if (k !== SHELL && k !== FONTS) return caches.delete(k);
-      }));
-    }).then(function () { return self.clients.claim(); })
+    caches.keys()
+      .then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', function (e) {
+/* Navigations: network first, fall back to the cached shell when offline.
+   Everything else: cache first, then network. */
+self.addEventListener('fetch', e => {
   const req = e.request;
-  if (req.method !== 'GET') return;
+  if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
 
-  let url;
-  try { url = new URL(req.url); } catch (err) { return; }
-
-  /* Page loads: network first so a new deploy lands immediately,
-     cached copy when there is no network. */
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req).then(function (res) {
+      fetch(req).then(res => {
         const copy = res.clone();
-        caches.open(SHELL).then(function (c) { c.put('./index.html', copy); }).catch(function () {});
+        caches.open(CACHE).then(c => c.put('./index.html', copy)).catch(() => {});
         return res;
-      }).catch(function () {
-        return caches.match('./index.html', { ignoreSearch: true }).then(function (hit) {
-          return hit || caches.match('./', { ignoreSearch: true });
-        });
-      })
+      }).catch(() => caches.match('./index.html'))
     );
     return;
   }
 
-  /* Our own files: cache first, they are versioned by BUILD. */
-  if (url.origin === self.location.origin) {
-    e.respondWith(
-      caches.match(req, { ignoreSearch: true }).then(function (hit) {
-        return hit || fetch(req).then(function (res) {
-          if (res && res.ok) {
-            const copy = res.clone();
-            caches.open(SHELL).then(function (c) { c.put(req, copy); }).catch(function () {});
-          }
-          return res;
-        });
-      })
-    );
-    return;
-  }
-
-  /* Google Fonts: stale while revalidate, so Inter survives going offline.
-     If any of it fails the page just falls back to the system font stack. */
-  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
-    e.respondWith(
-      caches.open(FONTS).then(function (c) {
-        return c.match(req).then(function (hit) {
-          const net = fetch(req).then(function (res) {
-            if (res && res.ok) c.put(req, res.clone());
-            return res;
-          }).catch(function () { return hit; });
-          return hit || net;
-        });
-      })
-    );
-  }
-});
-
-/* Lets the page ask the waiting worker to take over straight away. */
-self.addEventListener('message', function (e) {
-  if (e.data === 'skipWaiting') self.skipWaiting();
+  e.respondWith(
+    caches.match(req).then(hit => hit || fetch(req).then(res => {
+      if (res && res.status === 200 && res.type === 'basic') {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(req, copy)).catch(() => {});
+      }
+      return res;
+    }).catch(() => hit))
+  );
 });
