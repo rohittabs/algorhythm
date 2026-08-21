@@ -115,6 +115,8 @@ Appearance, backup and restore, a short About, and the Support card.
 | `sw.js` | service worker, offline cache |
 | `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `apple-touch-icon.png` | app icons, including a maskable one for Android |
 | `Bravura.woff2`, `Bravura.woff` | Bravura music font (SIL OFL) for clefs, accidentals and rests |
+| `LICENSE` | MIT licence for Algorhythm |
+| `BRAVURA-FONT-NOTICE.txt` | SIL Open Font License 1.1 for the Bravura font |
 | `support-qr.png` | UPI QR shown in the Support card |
 | `.nojekyll` | stops GitHub Pages running the files through Jekyll |
 
@@ -170,7 +172,7 @@ So Beginner keeps almost everything between the staff lines, and each step up tr
 
 The app is one HTML file with no build step at runtime and no framework. Notation is drawn as SVG. Sound uses the Web Audio API, with separate buses for the metronome, the play along instrument, the subdivision pulse and the count-in, so a toggle takes effect on the next beat rather than at the end of the take.
 
-Engraving glyphs come from **Bravura** (Steinberg, SIL Open Font License 1.1), see `Bravura-LICENSE.txt`.
+Engraving glyphs come from **Bravura** (Steinberg, SIL Open Font License 1.1), see `BRAVURA-FONT-NOTICE.txt`.
 
 ### Deploying on GitHub Pages
 
@@ -202,9 +204,11 @@ First public release. Rhythm generation with correct beat grouping, beaming, tup
 
 ## License
 
-MIT for the app's own code. Use it, change it, share it, teach with it.
+Algorhythm is released under the **MIT License**. Use it, change it, share it, teach with it. See `LICENSE`.
 
-Bravura is a separate work by Steinberg Media Technologies GmbH, licensed under the SIL Open Font License 1.1 and redistributed here under that license. See `Bravura-LICENSE.txt`.
+### Third party
+
+The Bravura music font is a separate work by Steinberg Media Technologies GmbH, licensed under the **SIL Open Font License 1.1** and redistributed here unmodified under that license. Its full licence text ships with the app as `BRAVURA-FONT-NOTICE.txt`. MIT does not apply to the font, and the OFL does not apply to Algorhythm's own code.
 
 ---
 
