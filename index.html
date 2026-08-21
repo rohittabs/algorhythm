@@ -430,7 +430,7 @@
   /* Bravura (SIL OFL) -- real engraving glyphs for clefs, accidentals, rests.
      Bravura is drawn so one staff space = 0.25em, so font-size is always 4 x SP. */
   @font-face{font-family:Bravura;
-    src:url('./fonts/Bravura.woff2') format('woff2'),url('./fonts/Bravura.woff') format('woff');
+    src:url('./Bravura.woff2') format('woff2'),url('./Bravura.woff') format('woff');
     font-weight:normal;font-style:normal;font-display:block}
 
   /* More: the two columns were split by hand, so the shorter one ended early and
@@ -510,9 +510,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Algorhythm">
-<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
-<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <script>(function(){function g(){try{return localStorage.getItem('algorhythm:theme')||'system'}catch(e){return 'system'}}var mq=window.matchMedia?matchMedia('(prefers-color-scheme:dark)'):null;function res(p){return p==='system'?((mq&&mq.matches)?'dark':'light'):p}function apply(){document.documentElement.setAttribute('data-theme',res(g()))}apply();if(mq){var h=function(){if(g()==='system')apply()};try{mq.addEventListener('change',h)}catch(e){try{mq.addListener(h)}catch(e2){}}}var dq=window.matchMedia?matchMedia('(min-width:900px)'):null;function layout(){try{var nav=document.querySelector('nav.tabbar');var brand=document.querySelector('.brand');var page=document.querySelector('.page');if(!nav||!brand||!page)return;var d=dq?dq.matches:false;if(d){if(brand.parentElement!==nav)nav.insertBefore(brand,nav.firstChild)}else{if(brand.parentElement!==page)page.insertBefore(brand,page.firstChild)}if(!nav.querySelector('.railver')){var rv=document.createElement('div');rv.className='railver';rv.textContent='v3.0';nav.appendChild(rv)}}catch(e){}}function mark(){var s=document.getElementById('appearanceSeg');if(!s)return;var p=g();s.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-appearance')===p)})}function wire(){var s=document.getElementById('appearanceSeg');if(s){s.addEventListener('click',function(e){var b=e.target.closest('button[data-appearance]');if(!b)return;try{localStorage.setItem('algorhythm:theme',b.getAttribute('data-appearance'))}catch(err){}apply();mark()});mark()}layout();if(dq){try{dq.addEventListener('change',layout)}catch(e){try{dq.addListener(layout)}catch(e2){}}}}if(document.readyState!=='loading')wire();else document.addEventListener('DOMContentLoaded',wire)})();</script>
 </head>
 <body>

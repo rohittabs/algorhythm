@@ -1,12 +1,12 @@
 /* Algorhythm service worker -- offline-first.
    Bump CACHE when you deploy so clients pick up the new build. */
-const CACHE = 'algorhythm-v3.0.0';
+const CACHE = 'algorhythm-v3.0.1';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
   './support-qr.png',
-  './fonts/Bravura.woff2', './fonts/Bravura.woff',
-  './icons/icon-192.png', './icons/icon-512.png',
-  './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'
+  './Bravura.woff2', './Bravura.woff',
+  './icon-192.png', './icon-512.png',
+  './icon-maskable-512.png', './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {

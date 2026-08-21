@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="icons/icon-192.png" width="104" height="104" alt="Algorhythm">
+<img src="icon-192.png" width="104" height="104" alt="Algorhythm">
 
 # Algorhythm
 
@@ -113,8 +113,8 @@ Appearance, backup and restore, a short About, and the Support card.
 | `slides.html` | the two minute tour |
 | `manifest.webmanifest` | app name, icons, colours, standalone display |
 | `sw.js` | service worker, offline cache |
-| `icons/` | app icons, including a maskable one for Android |
-| `fonts/` | Bravura music font (SIL OFL) for clefs, accidentals and rests |
+| `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `apple-touch-icon.png` | app icons, including a maskable one for Android |
+| `Bravura.woff2`, `Bravura.woff` | Bravura music font (SIL OFL) for clefs, accidentals and rests |
 | `support-qr.png` | UPI QR shown in the Support card |
 | `.nojekyll` | stops GitHub Pages running the files through Jekyll |
 
@@ -170,7 +170,7 @@ So Beginner keeps almost everything between the staff lines, and each step up tr
 
 The app is one HTML file with no build step at runtime and no framework. Notation is drawn as SVG. Sound uses the Web Audio API, with separate buses for the metronome, the play along instrument, the subdivision pulse and the count-in, so a toggle takes effect on the next beat rather than at the end of the take.
 
-Engraving glyphs come from **Bravura** (Steinberg, SIL Open Font License 1.1), see `fonts/Bravura-LICENSE.txt`.
+Engraving glyphs come from **Bravura** (Steinberg, SIL Open Font License 1.1), see `Bravura-LICENSE.txt`.
 
 ### Deploying on GitHub Pages
 
@@ -184,7 +184,7 @@ Paths are all relative, so it works from a repository subfolder as well as from 
 
 ### Updating
 
-Edit `index.html`, then bump `CACHE` in `sw.js` so installed copies fetch the new build instead of serving the old cache. It currently reads `algorhythm-v3.0.0`, so the next patch deploy would be `algorhythm-v3.0.1`. The version label in the rail comes from `rv.textContent` in `index.html` and reads `v3.0`, so bump that on minor and major releases too.
+Edit `index.html`, then bump `CACHE` in `sw.js` so installed copies fetch the new build instead of serving the old cache. It currently reads `algorhythm-v3.0.1`, so the next patch deploy would be `algorhythm-v3.0.2`. The version label in the rail comes from `rv.textContent` in `index.html` and reads `v3.0`, so bump that on minor and major releases too.
 
 Miss the cache bump and anyone who installed the app keeps the cached shell. The fetch handler is network first for navigations, so an online visitor still gets the new page, but an offline one stays on the old build until the cache name changes.
 
@@ -204,7 +204,7 @@ First public release. Rhythm generation with correct beat grouping, beaming, tup
 
 MIT for the app's own code. Use it, change it, share it, teach with it.
 
-Bravura is a separate work by Steinberg Media Technologies GmbH, licensed under the SIL Open Font License 1.1 and redistributed here under that license. See `fonts/Bravura-LICENSE.txt`.
+Bravura is a separate work by Steinberg Media Technologies GmbH, licensed under the SIL Open Font License 1.1 and redistributed here under that license. See `Bravura-LICENSE.txt`.
 
 ---
 

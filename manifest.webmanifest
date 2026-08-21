@@ -1,5 +1,5 @@
 {
-  "name": "Algorhythm — The Sight Reading Generator",
+  "name": "Algorhythm - The Sight Reading Generator",
   "short_name": "Algorhythm",
   "description": "Generate rhythm sight-reading exercises with correct engraving, plus guitar and ukulele tab in open position and the CAGED / CAGFD shapes.",
   "start_url": "./",
@@ -18,23 +18,8 @@
     "education"
   ],
   "icons": [
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
